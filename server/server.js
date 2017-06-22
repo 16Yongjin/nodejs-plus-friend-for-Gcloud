@@ -7,7 +7,7 @@ var app = express();
 app.get('/keyboard', (req, res) => {
     message = {
         "type" : "buttons",
-        "buttons" : ["선택 1", "선택 2", "선택 3"]
+        "buttons" : ["포어과", "ㅎㅇ", "자퇴 신청"]
     }
 
     res.send(message);
