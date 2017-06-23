@@ -53,6 +53,14 @@ app.post('/message', (req, res) => {
                 'text': '안녕'
             }
         }
+    } else if (message == '도움') {
+        sendData = {
+            'keyboard': {
+                "type" : "buttons",
+                "buttons" : ["포어과", "ㅎㅇ", "자퇴 신청"]
+            }
+        }
+        
     } else {
         sendData = {
             'message': {
