@@ -27,25 +27,25 @@ app.post('/message', (req, res) => {
         }
     } else if (message == 'ㅎㅇ') {
         sendData = {
-            'message': {
+            message: {
                 text: 'Bom dia!'
             }
         }
     } else if (message == '자퇴 신청') {
         sendData = {
-            'message': {
+            message: {
                 text: 'ㅂㅂ'
             }
         }
     } else if (message.includes('안녕')) {
         sendData = {
-            'message': {
+            message: {
                 text: '안녕'
             }
         }
     } else {
         sendData = {
-            'message': {
+            message: {
                 text: ' ¯\\_(ツ)_/¯',
                 photo: {
                     url: 'http://a3.cdn.whatstrending.com/post_items/images/000/034/584/large/shrug_emoji.jpg',
