@@ -1,8 +1,10 @@
 const express = require('express');
+var bodyParser = require('body-parser');
 
 const port = process.env.PORT || 3000;
 
 var app = express();
+app.use(bodyParser.json());
 
 app.get('/keyboard', (req, res) => {
     menu = {
@@ -14,50 +16,58 @@ app.get('/keyboard', (req, res) => {
 });
 
 app.post('/message', (req, res) => {
-    const obj = req.body;
+    console.log(req.body);
+    var sendData = { };
+    if (!req.body['user_key'] || !req.body['type'] || !req.body['content']) {
+        sendData['success'] = 0;
+        sendData['error'] = 'invalid request';
+        res.send(JSON.stringify(sendData));
+        return;
+    }
 
-    var message = req.body.content;
+    var message = req.body['content'];
+    console.log(message);
     
-    var sendData;
+
     if (message == '포어과') {
         sendData = {
             'message': {
-                text: 'ㅎㅇ'
+                'text': 'ㅎㅇ'
             }
         }
     } else if (message == 'ㅎㅇ') {
         sendData = {
-            message: {
-                text: 'Bom dia!'
+            'message': {
+                'text': 'Bom dia!'
             }
         }
     } else if (message == '자퇴 신청') {
         sendData = {
-            message: {
-                text: 'ㅂㅂ'
+            'message': {
+                'text': 'ㅂㅂ'
             }
         }
     } else if (message.includes('안녕')) {
         sendData = {
-            message: {
-                text: '안녕'
+            'message': {
+                'text': '안녕'
             }
         }
     } else {
         sendData = {
-            message: {
-                text: ' ¯\\_(ツ)_/¯',
-                photo: {
-                    url: 'http://a3.cdn.whatstrending.com/post_items/images/000/034/584/large/shrug_emoji.jpg',
-                    width: 400,
-                    height: 200
+            'message': {
+                'text': ' ¯\\_(ツ)_/¯',
+                'photo': {
+                    'url': 'http://a3.cdn.whatstrending.com/post_items/images/000/034/584/large/shrug_emoji.jpg',
+                    'width': 400,
+                    'height': 200
                 }
             }
         }
     }
 
-    res.send(JSON.stringify(sendData));
-})
+    res.send(sendData);
+});
 
 
 app.listen(port, () => {
