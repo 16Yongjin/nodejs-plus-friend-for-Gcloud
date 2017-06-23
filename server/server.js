@@ -82,7 +82,7 @@ app.post('/message', (req, res) => {
             },
             'keyboard': {
                 "type" : "buttons",
-                "buttons" : ["포어과", "ㅎㅇ", "자퇴 신청"]
+                "buttons" : ["포어과", "ㅎㅇ", "단어 찾기"]
             }
         }
         
