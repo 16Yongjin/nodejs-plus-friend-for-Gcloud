@@ -1,5 +1,7 @@
 const express = require('express');
 var bodyParser = require('body-parser');
+var request = require('request');
+var {wordMeaning} = require('./utils');
 
 const port = process.env.PORT || 3000;
 
@@ -9,7 +11,7 @@ app.use(bodyParser.json());
 app.get('/keyboard', (req, res) => {
     menu = {
         "type" : "buttons",
-        "buttons" : ["포어과", "ㅎㅇ", "자퇴 신청"]
+        "buttons" : ["포어과", "ㅎㅇ", "단어 찾기"]
     }
 
     res.send(menu);
@@ -41,13 +43,33 @@ app.post('/message', (req, res) => {
                 'text': 'Bom dia!'
             }
         }
-    } else if (message == '자퇴 신청') {
+    } else if (message == '단어 찾기') {
         sendData = {
             'message': {
-                'text': 'ㅂㅂ'
+                'text': '단어를 찾으려면 w나 ㄷ를 앞에 쓰고 한 칸 띄운 다음 단어를 입력해주세요'
             }
         }
-    } else if (message.includes('안녕')) {
+    } else if (message.startsWith('w ') || message.startsWith('ㄷ ') ) {
+        wordMeaning(message, (meaning) => {
+            if (meaning) {
+                sendData = {
+                    'message': {
+                        'text': meaning
+                    }
+                }
+                
+            } else {
+                sendData = {
+                    'message' : {
+                        'text': '몰라요'
+                    }
+                }
+            }
+            res.send(sendData);
+            
+        });
+        return
+    } else if (message == '안녕') {
         sendData = {
             'message': {
                 'text': '안녕'
@@ -76,7 +98,6 @@ app.post('/message', (req, res) => {
             }
         }
     }
-
     res.send(sendData);
 });
 
