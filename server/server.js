@@ -55,6 +55,9 @@ app.post('/message', (req, res) => {
         }
     } else if (message == '도움') {
         sendData = {
+            'message': {
+                'text': 'ㅇㅋ'
+            },
             'keyboard': {
                 "type" : "buttons",
                 "buttons" : ["포어과", "ㅎㅇ", "자퇴 신청"]
