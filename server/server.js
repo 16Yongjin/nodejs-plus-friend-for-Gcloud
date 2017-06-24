@@ -2,6 +2,7 @@ const express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
 var {wordMeaning} = require('./utils');
+var {translate} = require('./utils');
 
 const port = process.env.PORT || 3000;
 
@@ -69,6 +70,25 @@ app.post('/message', (req, res) => {
             
         });
         return
+    } else if (message.startsWith('t ') || message.startsWith('ㅂ ') ) { 
+        translate(message, (meaning) => {
+            if (meaning) {
+                sendData = {
+                    'message': {
+                        'text': meaning
+                    }
+                }
+                
+            } else {
+                sendData = {
+                    'message' : {
+                        'text': '몰라요'
+                    }
+                }
+            }
+            res.send(sendData);
+        });
+        return;
     } else if (message == '안녕') {
         sendData = {
             'message': {

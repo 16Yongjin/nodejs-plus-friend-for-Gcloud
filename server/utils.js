@@ -31,4 +31,21 @@ function wordMeaning (message, callback) {
     
 }
 
-module.exports = {wordMeaning};
+function translate (message, callback) {
+    var word = message.substring(2).trim();
+    var toTranslate = encodeURIComponent(word);
+    var url = `https://translation.googleapis.com/language/translate/v2?q=${toTranslate}&target=pt&model=nmt&key=AIzaSyAQyEs8Bzbis98zoDJHVHjvcKDsP6b4-Es`
+    var meaning = '';
+    request({
+        url: url,
+        json: true
+    }, function (error, response, body) {
+        
+        if (!error && response.statusCode === 200) {
+            meaning = body.data.translations[0].translatedText;
+        }
+        callback(meaning);
+    });
+}
+
+module.exports = {wordMeaning, translate};
