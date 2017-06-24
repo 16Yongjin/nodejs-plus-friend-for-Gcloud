@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.get('/keyboard', (req, res) => {
     menu = {
         "type" : "buttons",
-        "buttons" : ["포어과", "ㅎㅇ", "단어 찾기"]
+        "buttons" : ["포어과", "단어 찾기", "번역하기"]
     }
 
     res.send(menu);
@@ -48,6 +48,12 @@ app.post('/message', (req, res) => {
         sendData = {
             'message': {
                 'text': '단어를 찾으려면 w나 ㄷ를 앞에 쓰고 한 칸 띄운 다음 단어를 입력해주세요'
+            }
+        }
+    } else if (message == '번역하기') {
+        sendData = {
+            'message': {
+                'text': '번역을 할려면 t나 ㅂ를 앞에 쓰고 한 칸 띄운 다음 문장을 입력해주세요\n한국어 -> 포어, 영어 -> 포어만 지원됩니다.'
             }
         }
     } else if (message.startsWith('w ') || message.startsWith('ㄷ ') ) {
@@ -102,7 +108,7 @@ app.post('/message', (req, res) => {
             },
             'keyboard': {
                 "type" : "buttons",
-                "buttons" : ["포어과", "ㅎㅇ", "단어 찾기"]
+                "buttons" : ["포어과", "단어 찾기", "번역하기"]
             }
         }
         
