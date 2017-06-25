@@ -1,8 +1,7 @@
 const express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
-var {wordMeaning} = require('./utils');
-var {translate} = require('./utils');
+var {wordMeaning, translate, getCafeteriaMenu} = require('./utils');
 
 const port = process.env.PORT || 3000;
 
@@ -12,7 +11,7 @@ app.use(bodyParser.json());
 app.get('/keyboard', (req, res) => {
     menu = {
         "type" : "buttons",
-        "buttons" : ["포어과", "단어 찾기", "번역하기"]
+        "buttons" : ["학식", "단어 찾기", "번역하기"]
     }
 
     res.send(menu);
@@ -95,6 +94,51 @@ app.post('/message', (req, res) => {
             res.send(sendData);
         });
         return;
+    } else if (message == '학식') {
+        sendData = {
+            'message': {
+                'text': 'ㅇㅋ'
+            },
+            'keyboard': {
+                "type" : "buttons",
+                "buttons" : ["인문관 점심", "인문관 저녁", "교수회관 점심", "교수회관 저녁"]
+            }
+        }
+        
+    } else if (message == '점심') {
+        sendData = {
+            'message': {
+                'text': 'Para onde?'
+            },
+            'keyboard': {
+                "type" : "buttons",
+                "buttons" : ["인문관 점심", "교수회관 점심"]
+            }
+        }
+        
+    } else if (message == '저녁') {
+        sendData = {
+            'message': {
+                'text': 'Para onde?'
+            },
+            'keyboard': {
+                "type" : "buttons",
+                "buttons" : ["인문관 저녁", "교수회관 저녁"]
+            }
+        }
+        
+    } else if (message == '인문관 점심' || message == '인문관 저녁' || message == '교수회관 점심' || message == '교수회관 저녁') {
+        getCafeteriaMenu(message, (menu) => {
+            {
+            sendData = {
+                'message' : {
+                    'text': menu
+                }
+            }
+            res.send(sendData);
+            }
+        });
+        return;     
     } else if (message == '안녕') {
         sendData = {
             'message': {
@@ -108,7 +152,7 @@ app.post('/message', (req, res) => {
             },
             'keyboard': {
                 "type" : "buttons",
-                "buttons" : ["포어과", "단어 찾기", "번역하기"]
+                "buttons" : ["학식", "단어 찾기", "번역하기"]
             }
         }
         
