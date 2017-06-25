@@ -87,7 +87,7 @@ function getCafeteriaMenu(message, callback) {
         }
 
         if (menus == '')
-            callback('오늘 밥 안 나옴');
+            callback('오늘은 밥 안 나옴');
         else
             callback(menus);
 
