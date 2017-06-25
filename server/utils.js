@@ -80,7 +80,10 @@ function getCafeteriaMenu(message, callback) {
         var match;
 
         while (match = re.exec(menu)) {
-            menus += (match[0].replace(' Kcal', 'Kcal').replace(/\s+/g, '\n').replace(/(\d{2})(\d{2}~\d{2})(\d{2})/g, ' $1:$2:$3\n').replace('Kcal', ' Kcal') + '\n\n');
+            if (menus != '') {
+                menus += '\n\n';
+            }
+            menus += (match[0].replace(' Kcal', 'Kcal').replace(/\s+/g, '\n').replace(/(\d{2})(\d{2}~\d{2})(\d{2})/g, ' $1:$2:$3').replace('Kcal', ' Kcal'));
         }
 
         if (menus == '')
