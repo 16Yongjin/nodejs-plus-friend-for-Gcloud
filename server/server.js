@@ -96,9 +96,6 @@ app.post('/message', (req, res) => {
         return;
     } else if (message == '학식') {
         sendData = {
-            'message': {
-                'text': 'ㅇㅋ'
-            },
             'keyboard': {
                 "type" : "buttons",
                 "buttons" : ["인문관 점심", "인문관 저녁", "교수회관 점심", "교수회관 저녁"]
