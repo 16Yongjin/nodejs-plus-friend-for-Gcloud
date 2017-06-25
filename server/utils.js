@@ -56,7 +56,6 @@ function getCafeteriaMenu(message, callback) {
     var eatingTime = message.split(" ")[1];
 
     var today = new Date().toISOString().substring(0,10).replace(/-/g, '');
-    today = '20170626';
     var url = `https://webs.hufs.ac.kr/jsp/HUFS/cafeteria/viewWeek.jsp?startDt=${today}&endDt=${today}`;
     
     if (place == '인문관')
