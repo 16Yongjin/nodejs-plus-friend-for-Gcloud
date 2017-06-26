@@ -1,7 +1,10 @@
 const express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
-var {wordMeaning, translate, getCafeteriaMenu} = require('./utils');
+var utils = require('./utils');
+var wordMeaning = utils.wordMeaning
+var translate = utils.translate
+var getCafeteriaMenu = utils.getCafeteriaMenu
 
 const port = process.env.PORT || 3000;
 
